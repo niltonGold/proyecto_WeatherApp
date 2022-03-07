@@ -1,0 +1,8 @@
+.card_container{
+    width: 300px;
+    height: 300px;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
