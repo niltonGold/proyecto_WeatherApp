@@ -79,20 +79,20 @@ export default function PrincipalPage(){
     }
 
   
-    useEffect( () => {
-        toggleTab(toggleState);
+    // useEffect( () => {
+    //     toggleTab(toggleState);
         
 
-    }, [toggleState]);
+    // }, [toggleState]);
 
 
     return(
 
         <div className="card_container">
             
-            <div>
+            <div className='search-and-cardAtual-Container'>
                 
-                    <Paper onSubmit={handleForm} component="form"  sx={{  height:'25px' , p: '1px 2px', display: 'flex', alignItems: 'center', width:'40vw'  }}    >
+                    <Paper onSubmit={handleForm} component="form"  sx={{  height:'22px', display: 'flex', alignItems: 'center', width:'200px'  }}    >
 
                             <IconButton type="submit" sx={{  }} aria-label="search">
                                 <SearchIcon sx={{ pl:'3px' }}  />
@@ -100,10 +100,11 @@ export default function PrincipalPage(){
 
                             <InputBase id='inputText' placeholder="Escribe tu ciudad"  inputProps={{ 'aria-label': 'search google maps' }}  />
 
-                            <Divider sx={{  }} orientation="vertical" />
+                            <Divider orientation="vertical" />
 
-                            <IconButton color="primary"  aria-label="directions">
-                                <CancelIcon sx={{ pl:'3px' }}/>
+                            <IconButton sx={{ width:'20px' }} color="primary"  aria-label="directions">
+                                {/* <CancelIcon sx={{ pl:'2px' }}/> */}
+                                <CancelIcon sx={{ fontSize:'medium' }}/>
                             </IconButton>
 
                     </Paper>
@@ -121,21 +122,18 @@ export default function PrincipalPage(){
 
                             <Stack direction="row" spacing={5}>
 
+                            
+                                    <div className={ toggleState === 'celcius' ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('celcius') }><div>ºc</div></div>
                                 
-                                    <div className={ toggleState === 1 ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('celcius') }><div>ºc</div></div>
                                 
-
-                                
-                                    <div className={ toggleState === 2 ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('farenheit') }>f</div>
+                                    <div className={ toggleState === 'farenheit' ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('farenheit') }>f</div>
                               
-
-
-                                
+                               
                             </Stack>
 
                     </div>
 
-                    <RestInfo lat={latitud} lon={longitud}></RestInfo>
+                    <RestInfo temperatureFormat={toggleState} lat={latitud} lon={longitud}></RestInfo>
 
             </div>
         

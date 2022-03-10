@@ -89,17 +89,24 @@ export default function CardActualInfo(props){
         
     // Funcion que me ayudara a calcular el dia de la semana actual
     function diaDeLaSemana(dia){
-        const date = new Date(dia*1000);
-        let numberDay = date.getDay();  
-        const arrayDays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
-        dia = arrayDays[numberDay];
-        return dia;
+        console.log(dia);
+        if ( dia ==='' ){
+            return 'not defined';
+        }else{
+            const date = new Date(dia*1000);
+            let numberDay = date.getDay();  
+            const arrayDays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+            dia = arrayDays[numberDay];
+            return dia;
+        }
     }
 
 
     // Funcion que me ayudara a calcular la hora y minutos actuales
     function horaActual(hora){
-        
+        if ( hora === ''){
+            return '__:__ ';
+        }else{
         const date = new Date(hora*1000);
         let numberHora = date.getHours();
         let numberMinutos = date.getMinutes();  
@@ -136,6 +143,7 @@ export default function CardActualInfo(props){
 
 
         return hora;
+        }
     }
 
 
@@ -151,11 +159,18 @@ export default function CardActualInfo(props){
             const num = parseInt(temp)-273.15;
             return num.toFixed(0);
         }
+
     }
 
     function kelvinAFahrenheit(temp){
+
+        if ( temp === 0 ) {
+            return 0;
+        }else{
         const num = (parseInt(temp)-273.15)*(9/5)+32
         return num.toFixed(0);
+        }
+
     }
 
 
