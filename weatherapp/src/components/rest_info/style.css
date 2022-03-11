@@ -1,9 +1,0 @@
-
-.rest_info{
-    background-color: rgb(233, 190, 133);
-}
-    .container_cardsWeek{
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-    }

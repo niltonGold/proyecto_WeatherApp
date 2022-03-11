@@ -1,77 +1,55 @@
-import { useEffect, useState } from 'react';
-import ActualInfo from '../components/cardActual_info';
-import RestInfo from '../components/rest_info';
+import { useState } from 'react';
 import './style.css';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
 import CancelIcon from '@mui/icons-material/Cancel';
-import CardActualInfo from '../components/cardActual_info';
 import ApiKey from "../components/apiKey";
-
-
 import * as React from 'react';
-import Stack from '@mui/material/Stack';
-
-import Fingerprint from '@mui/icons-material/Fingerprint';
-
+import CardDiaActualInfo from '../components/cardDiaActualInfo';
+import TodaysHighlihts from '../components/todaysHighlights';
+import WeekCards from '../components/weekCards';
 
 
 
 const apiKey  = ApiKey;
 
+
+
 export default function PrincipalPage(){
 
-
-    const [ cityDates, upDateCityDates ] = useState('');
+    const [ latitud, upDateLatitud ] = useState('');
 
     const [ longitud, upDateLongitud ] = useState('');
  
-    const [ latitud, upDateLatitud ] = useState('');
+    const [ toggleState, upDateToggleState ] = useState('celcius');
 
-    // const [ temperatura, upDateTemperatura] = useState('');
 
     // Formulario que me extraerá la ciudad que escriba en el buscador
     const handleForm = (e) => {
         e.preventDefault();
-        // console.log('principal page: '+e.target.inputText.value);
+        console.log('principal page: '+e.target.inputText.value);
         dataWeatherByCity(e.target.inputText.value, apiKey);
-
-
-
         e.target.inputText.value = '';
     }
 
 
-        // Con esta funcion llamo a la api por el nombre de una ciudad
-        async function dataWeatherByCity(ciudad, apiKey){
+
+    // Con esta funcion llamo a la api por el nombre de una ciudad
+    async function dataWeatherByCity(ciudad, apiKey){
         const d = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&include=main&appid=${apiKey}`);
         const data = await d.json();
-        console.log(data);
-    
-        // dataWeatherByLatLon(data.coord?.lat,data.coord?.lon);
+
+        if ( data.cod === '404' || data.cod === '400' ){
+            console.log('ciudad no encontrada')
+        }else{
         upDateLongitud(data.coord?.lon);
         upDateLatitud(data.coord?.lat);
-        // upDateTemperatura(data.main?.temp);
-        // console.log('principal page: '+data.main.temp);
+        }
     }
 
-
-    // // Con esta funcion llamo a la api por latitud y longitud de una ciudad
-    // async function dataWeatherByLatLon(lat, lon){
-    //     const d = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-    //     const date = await d.json();
-    //     upDateCityDates(date);
-    //     // console.log(date);
-
-    // } 
-
-
-    const [ toggleState, upDateToggleState ] = useState('celcius');
+    
 
     function toggleTab(formatoTemperatura){
         upDateToggleState(formatoTemperatura);
@@ -79,64 +57,91 @@ export default function PrincipalPage(){
     }
 
   
-    // useEffect( () => {
-    //     toggleTab(toggleState);
-        
-
-    // }, [toggleState]);
 
 
     return(
 
         <div className="card_container">
-            
-            <div className='search-and-cardAtual-Container'>
-                
-                    <Paper onSubmit={handleForm} component="form"  sx={{  height:'22px', display: 'flex', alignItems: 'center', width:'200px'  }}    >
 
-                            <IconButton type="submit" sx={{  }} aria-label="search">
-                                <SearchIcon sx={{ pl:'3px' }}  />
-                            </IconButton>
+                <div className='serach_and_celciusFarenheit-container'>
 
-                            <InputBase id='inputText' placeholder="Escribe tu ciudad"  inputProps={{ 'aria-label': 'search google maps' }}  />
+                        <div className='serach_and_celciusFarenheit-interior'>
 
-                            <Divider orientation="vertical" />
+                                {/* Input Search */}
+                                <Paper onSubmit={handleForm} component="form"  sx={{ height:'21px', display: 'flex', alignItems: 'center', width: '200px'  }}    >
 
-                            <IconButton sx={{ width:'20px' }} color="primary"  aria-label="directions">
-                                {/* <CancelIcon sx={{ pl:'2px' }}/> */}
-                                <CancelIcon sx={{ fontSize:'medium' }}/>
-                            </IconButton>
+                                        <IconButton type="submit" sx={{ pl:'0.1rem' }} aria-label="search">
+                                            <SearchIcon sx={{ fontSize: 'small' }}  />
+                                        </IconButton>
 
-                    </Paper>
-            
-                
-                    <CardActualInfo temperatureFormat={toggleState} lat={latitud} lon={longitud} ></CardActualInfo>
+                                        <InputBase required id='inputText' placeholder="Escribe tu ciudad" sx={{fontSize:'smaller', width:'100%'}}  inputProps={{ 'aria-label': 'search google maps' }}  />
 
-            </div>
-            
-            {/* ------------------------------------------- */}
-            
-            <div>
-
-                    <div>
-
-                            <Stack direction="row" spacing={5}>
+                                        
+                                        <button type='reset' className='button_iconCancel'>
+                                            <CancelIcon sx={{ fontSize:'small', mr: '3px' }}/>
+                                        </button>
+                                    
+                                </Paper>
 
                             
-                                    <div className={ toggleState === 'celcius' ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('celcius') }><div>ºc</div></div>
-                                
-                                
-                                    <div className={ toggleState === 'farenheit' ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('farenheit') }>f</div>
-                              
-                               
-                            </Stack>
+                                {/* Celcius and Farentheit buttons */}
+                                <div className='celcius-farenheit-btns'>
 
-                    </div>
+                                        <div className={ toggleState === 'celcius' ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('celcius') }>
+                                            ºC
+                                        </div>  
 
-                    <RestInfo temperatureFormat={toggleState} lat={latitud} lon={longitud}></RestInfo>
+                                        <div className={ toggleState === 'farenheit' ? 'tab-activate' : 'tab-desactivate' } onClick={ () => toggleTab('farenheit') }>
+                                            F
+                                        </div>
 
-            </div>
-        
+                                </div>
+                            
+                        </div>
+
+                </div>
+
+                {/* ------------------------------------------------------------------------------ */}
+
+                <div className='cardActualInfo_TodaysHighlights-container'>
+
+                        <div className='cardActualInfo_TodaysHighlights-interior'>
+                            
+                                {/* Card dia Actual */}
+                                <div className='cardDiaActual_principal_page'>
+                                    <CardDiaActualInfo lat={latitud} lon={longitud} temperaturaFormato={toggleState} />
+                                </div>
+
+
+                                {/* Todays highlights */}
+                                <div className='todaysHighlights_principal_page'>
+                                    <TodaysHighlihts lat={latitud} lon={longitud}/>
+                                </div>
+
+                        </div>
+
+                </div>
+
+                {/* ------------------------------------------------------------------------------ */}
+
+                <div className='week_container'>
+
+                        <div className='week_container-interior'>
+
+                            {/* Week title */}
+                            <div className='week_container-interior-title-container'>
+                                week
+                            </div>
+
+
+                            {/* week Cards */}     
+                            <div className='week_container-interior-cards-container'>
+                                <WeekCards temperaturaFormato={toggleState} lat={latitud} lon={longitud}></WeekCards>
+                            </div>
+                        </div>
+                    
+                </div>
+            
         </div>
 
     )
