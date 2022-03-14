@@ -23,7 +23,7 @@ export default function PrincipalPage(){
 
     const [ longitud, upDateLongitud ] = useState('');
  
-    const [ toggleState, upDateToggleState ] = useState('celcius');
+  
 
 
     // Formulario que me extraerá la ciudad que escriba en el buscador
