@@ -36,7 +36,6 @@ export default function TodaysHighlihts(props){
 
             const date = await d.json();
 
-            // console.log(date);
            
             setUviIndex(date?.current.uvi);
         
@@ -107,11 +106,9 @@ export default function TodaysHighlihts(props){
 
 
 
-
     function m_to_km(num){
         return num/1000;
     }
-
 
 
 
