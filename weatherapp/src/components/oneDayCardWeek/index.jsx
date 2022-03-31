@@ -43,14 +43,14 @@ export default function OneDayCardWeek(props){
     return(
         <div className='oneCardWeek-Container'>
 
-            <div>
+            <div className='oneCardWeek-day'>
                 {diaDeLaSemana(props.fecha)}
             </div>
 
             {/* ----------------------------- */}
 
             <div>
-                {<img className='iconWeather' src={`http://openweathermap.org/img/wn/${props.iconCode}@2x.png`} />}
+                {<img className='iconWeather' src={`https://openweathermap.org/img/wn/${props.iconCode}@2x.png`} />}
             </div>
 
             {/* ----------------------------- */}

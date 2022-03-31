@@ -23,7 +23,7 @@ export default function PrincipalPage(){
 
     const [ longitud, upDateLongitud ] = useState('');
  
-  
+    const [ toggleState, upDateToggleState ] = useState('celcius');
 
 
     // Formulario que me extraerá la ciudad que escriba en el buscador
@@ -38,7 +38,7 @@ export default function PrincipalPage(){
 
     // Con esta funcion llamo a la api por el nombre de una ciudad
     async function dataWeatherByCity(ciudad, apiKey){
-        const d = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&include=main&appid=${apiKey}`);
+        const d = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&include=main&appid=${apiKey}`);
         const data = await d.json();
 
         if ( data.cod === '404' || data.cod === '400' ){
@@ -68,17 +68,17 @@ export default function PrincipalPage(){
                         <div className='serach_and_celciusFarenheit-interior'>
 
                                 {/* Input Search */}
-                                <Paper onSubmit={handleForm} component="form"  sx={{ height:'21px', display: 'flex', alignItems: 'center', width: '200px'  }}    >
+                                <Paper onSubmit={handleForm} component="form"  sx={{ ml: '10px', height:'35px', display: 'flex', alignItems: 'center', width: '200px'  }}    >
 
                                         <IconButton type="submit" sx={{ pl:'0.1rem' }} aria-label="search">
-                                            <SearchIcon sx={{ fontSize: 'small' }}  />
+                                            <SearchIcon sx={{ fontSize: '20px' }}  />
                                         </IconButton>
 
-                                        <InputBase required id='inputText' placeholder="Escribe tu ciudad" sx={{fontSize:'smaller', width:'100%'}}  inputProps={{ 'aria-label': 'search google maps' }}  />
+                                        <InputBase required id='inputText' placeholder="Escribe tu ciudad" sx={{ fontSize:'15px', width:'100%'}}  inputProps={{ 'aria-label': 'search google maps' }}  />
 
                                         
                                         <button type='reset' className='button_iconCancel'>
-                                            <CancelIcon sx={{ fontSize:'small', mr: '3px' }}/>
+                                            <CancelIcon sx={{ fontSize:'20px', mr: '3px' }}/>
                                         </button>
                                     
                                 </Paper>

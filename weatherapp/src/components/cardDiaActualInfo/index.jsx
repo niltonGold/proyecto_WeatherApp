@@ -95,7 +95,7 @@ export default function CardDiaActualInfo(props){
     function horaActual(hora){
             if ( hora === ''){
 
-                return '__:__ ';
+                return '__ : __ ';
 
             }else{
 
@@ -165,7 +165,7 @@ useEffect( () => {
 
 
                 {/* ------ ICONO DE LA IMAGEN DEL CLIMA ------ */}
-                <img className='icono_tiempo-actual' src={`http://openweathermap.org/img/wn/${iconCode}@2x.png`} />
+                <img className='icono_tiempo-actual' src={`https://openweathermap.org/img/wn/${iconCode}@2x.png`} />
 
 
                 {/* -------- VALOR DE LA TEMPERATURA EN CELCIUS O FARENHEIT -------- */}
