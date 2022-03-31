@@ -23,6 +23,7 @@
             gap: 1rem;
             width: 80%;
             /* background-color: aqua; */
+            justify-content: center;
         }
 
                 .todaysHighlights-card{
@@ -34,14 +35,14 @@
 
                         .todaysHighlights-card-title{
                             /* background-color: aqua; */
-                            color: #cecece;
+                            color: #9e9b9b;
                             height: 20%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                         }
                                     .title_text{
-                                        font-size: 8px;;
+                                        font-size: 10px;;
                                     }
 
                         .todaysHighlights-card-body{
@@ -58,7 +59,7 @@
                                 }
                                 .simbolo-metricoKmH_Km{
                                     /* background-color: rgb(156, 156, 201); */
-                                    height: 35%;
+                                    height: 41%;
                                     display: flex;
                                     align-items: flex-end;
                                 }
